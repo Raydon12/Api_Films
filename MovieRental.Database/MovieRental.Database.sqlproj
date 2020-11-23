@@ -60,6 +60,9 @@
     <Folder Include="Scripts" />
     <Folder Include="Functions" />
     <Folder Include="Procedures" />
+    <Folder Include="Procedures\Actor" />
+    <Folder Include="Procedures\Category" />
+    <Folder Include="Procedures\Films" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\Film.sql" />
@@ -76,6 +79,18 @@
     <Build Include="Functions\MVSF_GetPreHash.sql" />
     <Build Include="Procedures\MVSP_CheckCustomer.sql" />
     <Build Include="Procedures\MVSP_RegisterCustomer.sql" />
+    <Build Include="Procedures\Actor\GetActorByFilm.sql" />
+    <Build Include="Procedures\Actor\GetActorById.sql" />
+    <Build Include="Procedures\Actor\GetActorByInitial.sql" />
+    <Build Include="Procedures\Actor\GetAllActor.sql" />
+    <Build Include="Procedures\Category\GetAllCategory.sql" />
+    <Build Include="Procedures\Actor\GetAllActorByInitial.sql" />
+    <Build Include="Procedures\Films\GetAllFilm.sql" />
+    <Build Include="Procedures\Films\GetFilmByActor.sql" />
+    <Build Include="Procedures\Films\GetFilmByCategory.sql" />
+    <Build Include="Procedures\Films\GetFilmByKeyWord.sql" />
+    <Build Include="Procedures\Films\GetFilmByLanguage.sql" />
+    <Build Include="Procedures\Films\GetFilmByTitle.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="MovieRental.Database.publish.xml" />

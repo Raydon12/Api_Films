@@ -12,7 +12,7 @@
 		</CustomData>
 		<CustomData Category="Reference" Type="Assembly">
 			<Metadata Name="LogicalName" Value="MovieRental.dll" />
-			<Metadata Name="FileName" Value="C:\USERS\KRD70\DOWNLOADS\MOBILE2020_MOVIERENTAL-MASTER\MOVIERENTAL.DATABASE\OBJ\DEBUG\MOVIERENTAL.DLL" />
+			<Metadata Name="FileName" Value="C:\USERS\KRD70\DOWNLOADS\MOBILE2020_MOVIERENTAL-MASTER-MAIN\MOVIERENTAL.DATABASE\OBJ\DEBUG\MOVIERENTAL.DLL" />
 			<Metadata Name="AssemblyName" Value="MovieRental" />
 			<Metadata Name="PermissionSet" Value="SAFE" />
 			<Metadata Name="Owner" Value="" />
@@ -20,7 +20,7 @@
 			<Metadata Name="IsVisible" Value="True" />
 			<Metadata Name="IsModelAware" Value="True" />
 			<Metadata Name="SkipCreationIfEmpty" Value="True" />
-			<Metadata Name="AssemblySymbolsName" Value="C:\Users\krd70\Downloads\Mobile2020_MovieRental-master\MovieRental.Database\obj\Debug\MovieRental.pdb" />
+			<Metadata Name="AssemblySymbolsName" Value="C:\Users\krd70\Downloads\Mobile2020_MovieRental-master-main\MovieRental.Database\obj\Debug\MovieRental.pdb" />
 		</CustomData>
 		<CustomData Category="SqlCmdVariables" Type="SqlCmdVariable" />
 	</Header>
@@ -932,6 +932,614 @@
 				</Entry>
 			</Relationship>
 			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="24" />
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[GetActorByFilm]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+	SELECT A.* FROM Actor A, FilmActor FM, Film F
+	WHERE A.ActorId = FM.ActorId 
+	and FM.FilmId = F.FilmId
+	and F.Title = UPPER(@FilmTitle)
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References Name="[dbo].[Actor]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FilmActor]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Film]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Actor].[ActorId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FilmActor].[ActorId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FilmActor].[FilmId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Film].[FilmId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Film].[Title]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[GetActorByFilm].[@FilmTitle]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[GetActorByFilm].[@FilmTitle]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="255" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="Length" Value="214" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE [dbo].[GetActorByFilm]&#xA;&#x9;@FilmTitle varchar(255)&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[GetActorById]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+	SELECT * FROM Actor WHERE ActorId = @Id
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References Name="[dbo].[Actor]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Actor].[ActorId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[GetActorById].[@Id]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[GetActorById].[@Id]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="Length" Value="100" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE [dbo].[GetActorById]&#xA;&#x9;@Id int&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[GetActorByInitial]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+	SELECT * FROM Actor 
+	WHERE LEFT(FirstName,1) = @FirstL
+	and LEFT(LastName,1) = @LastL
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References Name="[dbo].[Actor]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Actor].[FirstName]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[GetActorByInitial].[@FirstL]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Actor].[LastName]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[GetActorByInitial].[@LastL]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[GetActorByInitial].[@FirstL]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="1" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[char]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[GetActorByInitial].[@LastL]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="1" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[char]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="Length" Value="171" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE [dbo].[GetActorByInitial]&#xA;&#x9;@FirstL char,&#xA;&#x9;@LastL char&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[GetAllActor]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+	SELECT * FROM Actor
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References Name="[dbo].[Actor]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="Length" Value="71" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE [dbo].[GetAllActor]&#xA;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[GetAllActorByInitial]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+	SELECT * FROM Actor 
+	WHERE SUBSTRING(LastName,1,1) = @LastL
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References Name="[dbo].[Actor]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Actor].[LastName]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[GetAllActorByInitial].[@LastL]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[GetAllActorByInitial].[@LastL]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="1" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[char]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="Length" Value="139" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE [dbo].[GetAllActorByInitial]&#xD;&#xA;&#x9;@LastL char&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[GetAllCategory]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+	SELECT * FROM Category
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References Name="[dbo].[Category]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="Length" Value="77" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE [dbo].[GetAllCategory]&#xA;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[GetAllFilm]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+	SELECT * FROM Film
+RETURN 0]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References Name="[dbo].[Film]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="Length" Value="73" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE [dbo].[GetAllFilm]&#xD;&#xA;&#x9;&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[GetFilmByActor]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+	SELECT * FROM Film f , Actor a , FilmActor fa
+	where a.ActorId = fa.ActorId
+	AND f.FilmId = fa.FilmId
+	AND a.LastName = @LastName;
+RETURN 0]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References Name="[dbo].[Film]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Actor]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FilmActor]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Actor].[ActorId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FilmActor].[ActorId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Film].[FilmId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FilmActor].[FilmId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Actor].[LastName]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[GetFilmByActor].[@LastName]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[GetFilmByActor].[@LastName]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="50" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="Length" Value="212" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE [dbo].[GetFilmByActor]&#xD;&#xA;@LastName varchar(50)&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[GetFilmByCategory]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+    SELECT * FROM Film f, Category c, FilmCategory fc 
+    WHERE f.FilmId = fc.FilmId
+    AND c.CategoryId = fc.CategoryId
+    AND c.[Name] = @catName;
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References Name="[dbo].[Film]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Category]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FilmCategory]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Film].[FilmId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FilmCategory].[FilmId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Category].[CategoryId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FilmCategory].[CategoryId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Category].[Name]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[GetFilmByCategory].[@catName]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[GetFilmByCategory].[@catName]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="25" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="Length" Value="241" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE [dbo].[GetFilmByCategory]&#xD;&#xA;    @catName nvarchar(25)&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[GetFilmByKeyWord]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+	SELECT * FROM Film WHERE [Description] Like '%' + @KeyWord +'%'
+RETURN 0]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References Name="[dbo].[Film]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Film].[Description]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[GetFilmByKeyWord].[@KeyWord]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[GetFilmByKeyWord].[@KeyWord]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="255" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="Length" Value="145" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE [dbo].[GetFilmByKeyWord]&#xD;&#xA;&#x9;@KeyWord varchar(255)&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[GetFilmByLanguage]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+	SELECT * from Film f , [Language] l where f.LanguageId = l.LanguageId
+	AND l.[Name] = @Language
+RETURN 0]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References Name="[dbo].[Film]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Language]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Film].[LanguageId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Language].[LanguageId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Language].[Name]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[GetFilmByLanguage].[@Language]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[GetFilmByLanguage].[@Language]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="25" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="Length" Value="180" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE [dbo].[GetFilmByLanguage]&#xD;&#xA;&#x9;@Language nvarchar(25)&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[GetFilmByTitle]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+	SELECT * From Film where Title LIKE  '%' + @Title + '%'
+RETURN 0]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References Name="[dbo].[Film]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Film].[Title]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[GetFilmByTitle].[@Title]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[GetFilmByTitle].[@Title]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="1" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[varchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="Length" Value="128" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE [dbo].[GetFilmByTitle]&#xD;&#xA;&#x9;@Title varchar&#xD;&#xA;AS" />
+			</Annotation>
 		</Element>
 		<Element Type="SqlTable" Name="[dbo].[Language]">
 			<Property Name="IsAnsiNullsOn" Value="True" />
