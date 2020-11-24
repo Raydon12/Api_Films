@@ -11,7 +11,6 @@ C:\Users\kaiis\Downloads\Mobile2020_MovieRental-master\MovieRental.Database\obj\
 C:\Users\krd70\Downloads\Mobile2020_MovieRental-master-main\MovieRental.Database\bin\Debug\MovieRental.Database.dacpac
 C:\Users\krd70\Downloads\Mobile2020_MovieRental-master-main\MovieRental.Database\bin\Debug\MovieRental.dll
 C:\Users\krd70\Downloads\Mobile2020_MovieRental-master-main\MovieRental.Database\bin\Debug\MovieRental.pdb
-C:\Users\krd70\Downloads\Mobile2020_MovieRental-master-main\MovieRental.Database\obj\Debug\MovieRental.Database.sqlprojAssemblyReference.cache
 C:\Users\krd70\Downloads\Mobile2020_MovieRental-master-main\MovieRental.Database\obj\Debug\Model.xml
 C:\Users\krd70\Downloads\Mobile2020_MovieRental-master-main\MovieRental.Database\obj\Debug\refactor.xml
 C:\Users\krd70\Downloads\Mobile2020_MovieRental-master-main\MovieRental.Database\obj\Debug\postdeploy.sql

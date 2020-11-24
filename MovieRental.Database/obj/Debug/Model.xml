@@ -1667,7 +1667,7 @@ END]]></Value>
 			<Property Name="BodyScript">
 				<Value><![CDATA[
 BEGIN
-	SELECT [CustomerId], [LastName], [FirstName], [Email] FROM [Customer] WHERE [Email] = @Email and PAsswd = HASHBYTES('SHA2_512', dbo.MVSF_GetPreHash() + @Passwd + dbo.MVSF_GetPostHash());
+	SELECT [CustomerId], [LastName], [FirstName], [Email] FROM [Customer] WHERE [Email] = @Email and Passwd = HASHBYTES('SHA2_512', dbo.MVSF_GetPreHash() + @Passwd + dbo.MVSF_GetPostHash());
 END]]></Value>
 			</Property>
 			<Property Name="IsAnsiNullsOn" Value="True" />
