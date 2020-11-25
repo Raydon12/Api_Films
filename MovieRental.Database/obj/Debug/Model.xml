@@ -12,7 +12,7 @@
 		</CustomData>
 		<CustomData Category="Reference" Type="Assembly">
 			<Metadata Name="LogicalName" Value="MovieRental.dll" />
-			<Metadata Name="FileName" Value="C:\USERS\KRD70\DOWNLOADS\MOBILE2020_MOVIERENTAL-MASTER-MAIN\MOVIERENTAL.DATABASE\OBJ\DEBUG\MOVIERENTAL.DLL" />
+			<Metadata Name="FileName" Value="C:\USERS\KRD70\SOURCE\REPOS\TESTAPIFILM\MOVIERENTAL.DATABASE\OBJ\DEBUG\MOVIERENTAL.DLL" />
 			<Metadata Name="AssemblyName" Value="MovieRental" />
 			<Metadata Name="PermissionSet" Value="SAFE" />
 			<Metadata Name="Owner" Value="" />
@@ -20,7 +20,7 @@
 			<Metadata Name="IsVisible" Value="True" />
 			<Metadata Name="IsModelAware" Value="True" />
 			<Metadata Name="SkipCreationIfEmpty" Value="True" />
-			<Metadata Name="AssemblySymbolsName" Value="C:\Users\krd70\Downloads\Mobile2020_MovieRental-master-main\MovieRental.Database\obj\Debug\MovieRental.pdb" />
+			<Metadata Name="AssemblySymbolsName" Value="C:\Users\krd70\source\repos\testApiFilm\MovieRental.Database\obj\Debug\MovieRental.pdb" />
 		</CustomData>
 		<CustomData Category="SqlCmdVariables" Type="SqlCmdVariable" />
 	</Header>
@@ -104,9 +104,9 @@
 					<References ExternalSource="BuiltIns" Name="[dbo]" />
 				</Entry>
 			</Relationship>
-			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="3" />
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="4" />
 		</Element>
-		<Element Type="SqlIndex" Name="[dbo].[actor].[IX_Actor_LastName]">
+		<Element Type="SqlIndex" Name="[dbo].[Actor].[IX_Actor_LastName]">
 			<Relationship Name="ColumnSpecifications">
 				<Entry>
 					<Element Type="SqlIndexedColumnSpecification">
@@ -167,8 +167,133 @@
 					<References ExternalSource="BuiltIns" Name="[dbo]" />
 				</Entry>
 			</Relationship>
-			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="4" />
 			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="5" />
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="6" />
+		</Element>
+		<Element Type="SqlProcedure" Name="[dbo].[CreateRental]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+    INSERT INTO [Rental] ([CustomerId])
+    VALUES (@CustomerId);
+
+    DECLARE @RentalId INT = SCOPE_IDENTITY();
+
+    INSERT INTO [RentalDetail] ([RentalId], [FilmId], [RentalPrice])
+    SELECT @RentalId, fi.[FilmId], f.[RentalPrice]
+    FROM @FilmIds fi
+    JOIN Film f ON fi.[FilmId] = f.[FilmId]
+RETURN 0]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[int]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Rental]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Rental].[CustomerId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CreateRental].[@CustomerId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[RentalDetail]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[RentalDetail].[RentalId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[RentalDetail].[FilmId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[RentalDetail].[RentalPrice]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CreateRental].[@FilmIds]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Film]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[CreateRental].[@FilmIds].[FilmId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Film].[FilmId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[Film].[RentalPrice]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="DynamicObjects">
+				<Entry>
+					<Element Type="SqlDynamicColumnSource" Name="[dbo].[CreateRental].[@FilmIds]" Disambiguator="3">
+						<Relationship Name="Columns">
+							<Entry>
+								<Element Type="SqlSimpleColumn" Name="[dbo].[CreateRental].[@FilmIds].[FilmId]">
+									<Property Name="IsNullable" Value="False" />
+									<Relationship Name="TypeSpecifier">
+										<Entry>
+											<Element Type="SqlTypeSpecifier">
+												<Relationship Name="Type">
+													<Entry>
+														<References ExternalSource="BuiltIns" Name="[int]" />
+													</Entry>
+												</Relationship>
+											</Element>
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Parameters">
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CreateRental].[@CustomerId]">
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSubroutineParameter" Name="[dbo].[CreateRental].[@FilmIds]">
+						<Property Name="IsReadOnly" Value="True" />
+						<Relationship Name="Type">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References Name="[dbo].[FilmIds]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="Length" Value="412" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="CREATE PROCEDURE [dbo].[CreateRental]&#xD;&#xA;    @CustomerId INT,&#xD;&#xA;    @FilmIds FilmIds READONLY&#xD;&#xA;AS" />
+			</Annotation>
 		</Element>
 		<Element Type="SqlTable" Name="[dbo].[Customer]">
 			<Property Name="IsAnsiNullsOn" Value="True" />
@@ -264,8 +389,8 @@
 					<References ExternalSource="BuiltIns" Name="[dbo]" />
 				</Entry>
 			</Relationship>
-			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="6" />
 			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="7" />
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="8" />
 		</Element>
 		<Element Type="SqlDefaultConstraint" Name="[dbo].[DF_Film_RatingId]">
 			<Property Name="DefaultExpressionScript">
@@ -281,7 +406,7 @@
 					<References Name="[dbo].[Film].[RatingId]" />
 				</Entry>
 			</Relationship>
-			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="8" />
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="9" />
 		</Element>
 		<Element Type="SqlDefaultConstraint" Name="[dbo].[DF_Film_RentalDuration]">
 			<Property Name="DefaultExpressionScript">
@@ -297,7 +422,7 @@
 					<References Name="[dbo].[Film].[RentalDuration]" />
 				</Entry>
 			</Relationship>
-			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="9" />
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="10" />
 		</Element>
 		<Element Type="SqlDefaultConstraint" Name="[dbo].[DF_Film_RentalRate]">
 			<Property Name="DefaultExpressionScript">
@@ -313,7 +438,7 @@
 					<References Name="[dbo].[Film].[RentalPrice]" />
 				</Entry>
 			</Relationship>
-			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="10" />
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="11" />
 		</Element>
 		<Element Type="SqlDefaultConstraint" Name="[dbo].[DF_Film_ReplacementCost]">
 			<Property Name="DefaultExpressionScript">
@@ -329,7 +454,7 @@
 					<References Name="[dbo].[Film].[ReplacementCost]" />
 				</Entry>
 			</Relationship>
-			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="11" />
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="12" />
 		</Element>
 		<Element Type="SqlDefaultConstraint" Name="[dbo].[DF_Rental_RentalDate]">
 			<Property Name="DefaultExpressionScript">
@@ -345,7 +470,7 @@
 					<References Name="[dbo].[Rental].[RentalDate]" />
 				</Entry>
 			</Relationship>
-			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="12" />
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="13" />
 		</Element>
 		<Element Type="SqlTable" Name="[dbo].[Film]">
 			<Property Name="IsAnsiNullsOn" Value="True" />
@@ -445,7 +570,7 @@
 								</Element>
 							</Entry>
 						</Relationship>
-						<AttachedAnnotation Disambiguator="9" />
+						<AttachedAnnotation Disambiguator="10" />
 					</Element>
 				</Entry>
 				<Entry>
@@ -464,7 +589,7 @@
 								</Element>
 							</Entry>
 						</Relationship>
-						<AttachedAnnotation Disambiguator="10" />
+						<AttachedAnnotation Disambiguator="11" />
 					</Element>
 				</Entry>
 				<Entry>
@@ -498,7 +623,7 @@
 								</Element>
 							</Entry>
 						</Relationship>
-						<AttachedAnnotation Disambiguator="11" />
+						<AttachedAnnotation Disambiguator="12" />
 					</Element>
 				</Entry>
 				<Entry>
@@ -515,7 +640,7 @@
 								</Element>
 							</Entry>
 						</Relationship>
-						<AttachedAnnotation Disambiguator="8" />
+						<AttachedAnnotation Disambiguator="9" />
 					</Element>
 				</Entry>
 			</Relationship>
@@ -524,9 +649,9 @@
 					<References ExternalSource="BuiltIns" Name="[dbo]" />
 				</Entry>
 			</Relationship>
-			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="13" />
 			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="14" />
 			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="15" />
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="16" />
 		</Element>
 		<Element Type="SqlIndex" Name="[dbo].[Film].[IX_Film_LanguageId]">
 			<Relationship Name="ColumnSpecifications">
@@ -605,9 +730,9 @@
 					<References ExternalSource="BuiltIns" Name="[dbo]" />
 				</Entry>
 			</Relationship>
-			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="16" />
 			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="17" />
 			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="18" />
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="19" />
 		</Element>
 		<Element Type="SqlIndex" Name="[dbo].[FilmActor].[IX_FilmActor_ActorId]">
 			<Relationship Name="ColumnSpecifications">
@@ -686,9 +811,9 @@
 					<References ExternalSource="BuiltIns" Name="[dbo]" />
 				</Entry>
 			</Relationship>
-			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="19" />
 			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="20" />
 			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="21" />
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="22" />
 		</Element>
 		<Element Type="SqlIndex" Name="[dbo].[FilmCategory].[IX_FilmCategory_CategoryId]">
 			<Relationship Name="ColumnSpecifications">
@@ -726,6 +851,30 @@
 				</Entry>
 			</Relationship>
 		</Element>
+		<Element Type="SqlTableType" Name="[dbo].[FilmIds]">
+			<Relationship Name="Columns">
+				<Entry>
+					<Element Type="SqlTableTypeSimpleColumn" Name="[dbo].[FilmIds].[FilmId]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+		</Element>
 		<Element Type="SqlForeignKeyConstraint" Name="[dbo].[FK_Film_Language]">
 			<Relationship Name="Columns">
 				<Entry>
@@ -747,7 +896,7 @@
 					<References Name="[dbo].[Language]" />
 				</Entry>
 			</Relationship>
-			<AttachedAnnotation Disambiguator="14" />
+			<AttachedAnnotation Disambiguator="15" />
 		</Element>
 		<Element Type="SqlForeignKeyConstraint" Name="[dbo].[FK_Film_Rating]">
 			<Relationship Name="Columns">
@@ -770,7 +919,7 @@
 					<References Name="[dbo].[Rating]" />
 				</Entry>
 			</Relationship>
-			<AttachedAnnotation Disambiguator="15" />
+			<AttachedAnnotation Disambiguator="16" />
 		</Element>
 		<Element Type="SqlForeignKeyConstraint" Name="[dbo].[FK_FilmActor_Actor]">
 			<Relationship Name="Columns">
@@ -793,7 +942,7 @@
 					<References Name="[dbo].[Actor]" />
 				</Entry>
 			</Relationship>
-			<AttachedAnnotation Disambiguator="17" />
+			<AttachedAnnotation Disambiguator="18" />
 		</Element>
 		<Element Type="SqlForeignKeyConstraint" Name="[dbo].[FK_FilmActor_Film]">
 			<Relationship Name="Columns">
@@ -816,7 +965,7 @@
 					<References Name="[dbo].[Film]" />
 				</Entry>
 			</Relationship>
-			<AttachedAnnotation Disambiguator="18" />
+			<AttachedAnnotation Disambiguator="19" />
 		</Element>
 		<Element Type="SqlForeignKeyConstraint" Name="[dbo].[FK_FilmCategory_Category]">
 			<Relationship Name="Columns">
@@ -839,7 +988,7 @@
 					<References Name="[dbo].[Category]" />
 				</Entry>
 			</Relationship>
-			<AttachedAnnotation Disambiguator="20" />
+			<AttachedAnnotation Disambiguator="21" />
 		</Element>
 		<Element Type="SqlForeignKeyConstraint" Name="[dbo].[FK_FilmCategory_Film]">
 			<Relationship Name="Columns">
@@ -862,7 +1011,7 @@
 					<References Name="[dbo].[Film]" />
 				</Entry>
 			</Relationship>
-			<AttachedAnnotation Disambiguator="21" />
+			<AttachedAnnotation Disambiguator="22" />
 		</Element>
 		<Element Type="SqlForeignKeyConstraint" Name="[dbo].[FK_Rental_Customer]">
 			<Relationship Name="Columns">
@@ -885,7 +1034,7 @@
 					<References Name="[dbo].[Customer]" />
 				</Entry>
 			</Relationship>
-			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="22" />
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="23" />
 		</Element>
 		<Element Type="SqlForeignKeyConstraint" Name="[dbo].[FK_RentalDetail_Film]">
 			<Relationship Name="Columns">
@@ -908,7 +1057,7 @@
 					<References Name="[dbo].[Film]" />
 				</Entry>
 			</Relationship>
-			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="23" />
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="24" />
 		</Element>
 		<Element Type="SqlForeignKeyConstraint" Name="[dbo].[FK_RentalDetail_Rental]">
 			<Relationship Name="Columns">
@@ -931,7 +1080,7 @@
 					<References Name="[dbo].[Rental]" />
 				</Entry>
 			</Relationship>
-			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="24" />
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="25" />
 		</Element>
 		<Element Type="SqlProcedure" Name="[dbo].[GetActorByFilm]">
 			<Property Name="BodyScript">
@@ -1584,8 +1733,8 @@ RETURN 0]]></Value>
 					<References ExternalSource="BuiltIns" Name="[dbo]" />
 				</Entry>
 			</Relationship>
-			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="25" />
 			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="26" />
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="27" />
 		</Element>
 		<Element Type="SqlScalarFunction" Name="[dbo].[MVSF_GetPostHash]">
 			<Property Name="IsAnsiNullsOn" Value="True" />
@@ -1887,7 +2036,7 @@ END]]></Value>
 					<References Name="[dbo].[Actor]" />
 				</Entry>
 			</Relationship>
-			<AttachedAnnotation Disambiguator="3" />
+			<AttachedAnnotation Disambiguator="4" />
 		</Element>
 		<Element Type="SqlPrimaryKeyConstraint" Name="[dbo].[PK_Category]">
 			<Relationship Name="ColumnSpecifications">
@@ -1906,7 +2055,7 @@ END]]></Value>
 					<References Name="[dbo].[Category]" />
 				</Entry>
 			</Relationship>
-			<AttachedAnnotation Disambiguator="4" />
+			<AttachedAnnotation Disambiguator="5" />
 		</Element>
 		<Element Type="SqlPrimaryKeyConstraint" Name="[dbo].[PK_Customer]">
 			<Relationship Name="ColumnSpecifications">
@@ -1925,7 +2074,7 @@ END]]></Value>
 					<References Name="[dbo].[Customer]" />
 				</Entry>
 			</Relationship>
-			<AttachedAnnotation Disambiguator="6" />
+			<AttachedAnnotation Disambiguator="7" />
 		</Element>
 		<Element Type="SqlPrimaryKeyConstraint" Name="[dbo].[PK_Film]">
 			<Relationship Name="ColumnSpecifications">
@@ -1944,7 +2093,7 @@ END]]></Value>
 					<References Name="[dbo].[Film]" />
 				</Entry>
 			</Relationship>
-			<AttachedAnnotation Disambiguator="13" />
+			<AttachedAnnotation Disambiguator="14" />
 		</Element>
 		<Element Type="SqlPrimaryKeyConstraint" Name="[dbo].[PK_FilmActor]">
 			<Relationship Name="ColumnSpecifications">
@@ -1972,7 +2121,7 @@ END]]></Value>
 					<References Name="[dbo].[FilmActor]" />
 				</Entry>
 			</Relationship>
-			<AttachedAnnotation Disambiguator="16" />
+			<AttachedAnnotation Disambiguator="17" />
 		</Element>
 		<Element Type="SqlPrimaryKeyConstraint" Name="[dbo].[PK_FilmCategory]">
 			<Relationship Name="ColumnSpecifications">
@@ -2000,7 +2149,7 @@ END]]></Value>
 					<References Name="[dbo].[FilmCategory]" />
 				</Entry>
 			</Relationship>
-			<AttachedAnnotation Disambiguator="19" />
+			<AttachedAnnotation Disambiguator="20" />
 		</Element>
 		<Element Type="SqlPrimaryKeyConstraint" Name="[dbo].[PK_Language]">
 			<Relationship Name="ColumnSpecifications">
@@ -2019,7 +2168,7 @@ END]]></Value>
 					<References Name="[dbo].[Language]" />
 				</Entry>
 			</Relationship>
-			<AttachedAnnotation Disambiguator="25" />
+			<AttachedAnnotation Disambiguator="26" />
 		</Element>
 		<Element Type="SqlPrimaryKeyConstraint" Name="[dbo].[PK_Rating]">
 			<Relationship Name="ColumnSpecifications">
@@ -2038,7 +2187,7 @@ END]]></Value>
 					<References Name="[dbo].[Rating]" />
 				</Entry>
 			</Relationship>
-			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="27" />
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="28" />
 		</Element>
 		<Element Type="SqlPrimaryKeyConstraint" Name="[dbo].[PK_Rental]">
 			<Relationship Name="ColumnSpecifications">
@@ -2057,7 +2206,7 @@ END]]></Value>
 					<References Name="[dbo].[Rental]" />
 				</Entry>
 			</Relationship>
-			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="28" />
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="29" />
 		</Element>
 		<Element Type="SqlPrimaryKeyConstraint" Name="[dbo].[PK_RentalDetail]">
 			<Relationship Name="ColumnSpecifications">
@@ -2085,7 +2234,7 @@ END]]></Value>
 					<References Name="[dbo].[RentalDetail]" />
 				</Entry>
 			</Relationship>
-			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="29" />
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="30" />
 		</Element>
 		<Element Type="SqlTable" Name="[dbo].[Rating]">
 			<Property Name="IsAnsiNullsOn" Value="True" />
@@ -2130,8 +2279,8 @@ END]]></Value>
 					<References ExternalSource="BuiltIns" Name="[dbo]" />
 				</Entry>
 			</Relationship>
-			<AttachedAnnotation Disambiguator="27" />
-			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="30" />
+			<AttachedAnnotation Disambiguator="28" />
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="31" />
 		</Element>
 		<Element Type="SqlTable" Name="[dbo].[Rental]">
 			<Property Name="IsAnsiNullsOn" Value="True" />
@@ -2139,6 +2288,7 @@ END]]></Value>
 				<Entry>
 					<Element Type="SqlSimpleColumn" Name="[dbo].[Rental].[RentalId]">
 						<Property Name="IsNullable" Value="False" />
+						<Property Name="IsIdentity" Value="True" />
 						<Relationship Name="TypeSpecifier">
 							<Entry>
 								<Element Type="SqlTypeSpecifier">
@@ -2166,7 +2316,7 @@ END]]></Value>
 								</Element>
 							</Entry>
 						</Relationship>
-						<AttachedAnnotation Disambiguator="12" />
+						<AttachedAnnotation Disambiguator="13" />
 					</Element>
 				</Entry>
 				<Entry>
@@ -2191,8 +2341,8 @@ END]]></Value>
 					<References ExternalSource="BuiltIns" Name="[dbo]" />
 				</Entry>
 			</Relationship>
-			<AttachedAnnotation Disambiguator="28" />
-			<AttachedAnnotation Disambiguator="22" />
+			<AttachedAnnotation Disambiguator="29" />
+			<AttachedAnnotation Disambiguator="23" />
 		</Element>
 		<Element Type="SqlIndex" Name="[dbo].[Rental].[IX_Rental_CustomerId]">
 			<Relationship Name="ColumnSpecifications">
@@ -2271,9 +2421,9 @@ END]]></Value>
 					<References ExternalSource="BuiltIns" Name="[dbo]" />
 				</Entry>
 			</Relationship>
-			<AttachedAnnotation Disambiguator="29" />
+			<AttachedAnnotation Disambiguator="30" />
+			<AttachedAnnotation Disambiguator="25" />
 			<AttachedAnnotation Disambiguator="24" />
-			<AttachedAnnotation Disambiguator="23" />
 		</Element>
 		<Element Type="SqlIndex" Name="[dbo].[RentalDetail].[IX_RentalDetail_FilmId]">
 			<Relationship Name="ColumnSpecifications">
@@ -2328,7 +2478,7 @@ END]]></Value>
 					<References Name="[dbo].[Category]" />
 				</Entry>
 			</Relationship>
-			<AttachedAnnotation Disambiguator="5" />
+			<AttachedAnnotation Disambiguator="6" />
 		</Element>
 		<Element Type="SqlUniqueConstraint" Name="[dbo].[UK_Customer_Email]">
 			<Relationship Name="ColumnSpecifications">
@@ -2347,7 +2497,7 @@ END]]></Value>
 					<References Name="[dbo].[Customer]" />
 				</Entry>
 			</Relationship>
-			<AttachedAnnotation Disambiguator="7" />
+			<AttachedAnnotation Disambiguator="8" />
 		</Element>
 		<Element Type="SqlUniqueConstraint" Name="[dbo].[UK_Language_Name]">
 			<Relationship Name="ColumnSpecifications">
@@ -2366,7 +2516,7 @@ END]]></Value>
 					<References Name="[dbo].[Language]" />
 				</Entry>
 			</Relationship>
-			<AttachedAnnotation Disambiguator="26" />
+			<AttachedAnnotation Disambiguator="27" />
 		</Element>
 		<Element Type="SqlUniqueConstraint" Name="[dbo].[UK_Rating_Rating]">
 			<Relationship Name="ColumnSpecifications">
@@ -2385,7 +2535,7 @@ END]]></Value>
 					<References Name="[dbo].[Rating]" />
 				</Entry>
 			</Relationship>
-			<AttachedAnnotation Disambiguator="30" />
+			<AttachedAnnotation Disambiguator="31" />
 		</Element>
 	</Model>
 </DataSchemaModel>

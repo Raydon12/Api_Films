@@ -1,0 +1,18 @@
+C:\Dev\Projet c#\DemoMovieRental\MovieRentalDB\ADOLibrairy\bin\Debug\netcoreapp3.1\ADOLibrairy.deps.json
+C:\Dev\Projet c#\DemoMovieRental\MovieRentalDB\ADOLibrairy\bin\Debug\netcoreapp3.1\ADOLibrairy.dll
+C:\Dev\Projet c#\DemoMovieRental\MovieRentalDB\ADOLibrairy\bin\Debug\netcoreapp3.1\ADOLibrairy.pdb
+C:\Dev\Projet c#\DemoMovieRental\MovieRentalDB\ADOLibrairy\obj\Debug\netcoreapp3.1\ADOLibrairy.csprojAssemblyReference.cache
+C:\Dev\Projet c#\DemoMovieRental\MovieRentalDB\ADOLibrairy\obj\Debug\netcoreapp3.1\ADOLibrairy.AssemblyInfoInputs.cache
+C:\Dev\Projet c#\DemoMovieRental\MovieRentalDB\ADOLibrairy\obj\Debug\netcoreapp3.1\ADOLibrairy.AssemblyInfo.cs
+C:\Dev\Projet c#\DemoMovieRental\MovieRentalDB\ADOLibrairy\obj\Debug\netcoreapp3.1\ADOLibrairy.csproj.CoreCompileInputs.cache
+C:\Dev\Projet c#\DemoMovieRental\MovieRentalDB\ADOLibrairy\obj\Debug\netcoreapp3.1\ADOLibrairy.dll
+C:\Dev\Projet c#\DemoMovieRental\MovieRentalDB\ADOLibrairy\obj\Debug\netcoreapp3.1\ADOLibrairy.pdb
+C:\Users\krd70\source\repos\testApiFilm\ADOLibrairy\bin\Debug\netcoreapp3.1\ADOLibrairy.deps.json
+C:\Users\krd70\source\repos\testApiFilm\ADOLibrairy\bin\Debug\netcoreapp3.1\ADOLibrairy.dll
+C:\Users\krd70\source\repos\testApiFilm\ADOLibrairy\bin\Debug\netcoreapp3.1\ADOLibrairy.pdb
+C:\Users\krd70\source\repos\testApiFilm\ADOLibrairy\obj\Debug\netcoreapp3.1\ADOLibrairy.csprojAssemblyReference.cache
+C:\Users\krd70\source\repos\testApiFilm\ADOLibrairy\obj\Debug\netcoreapp3.1\ADOLibrairy.AssemblyInfoInputs.cache
+C:\Users\krd70\source\repos\testApiFilm\ADOLibrairy\obj\Debug\netcoreapp3.1\ADOLibrairy.AssemblyInfo.cs
+C:\Users\krd70\source\repos\testApiFilm\ADOLibrairy\obj\Debug\netcoreapp3.1\ADOLibrairy.csproj.CoreCompileInputs.cache
+C:\Users\krd70\source\repos\testApiFilm\ADOLibrairy\obj\Debug\netcoreapp3.1\ADOLibrairy.dll
+C:\Users\krd70\source\repos\testApiFilm\ADOLibrairy\obj\Debug\netcoreapp3.1\ADOLibrairy.pdb
